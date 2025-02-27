@@ -3,7 +3,7 @@
 {% block title %}User Management{% endblock %}
 
 {% block content %} 
-    <h2>Welcome {{ request.user.first_name }}</h2>
+    <h2>Welcome {{ request.profile.nickname }}</h2>
     <p>This page is for user management functions.</p>
     <a href="{% url 'chipin:home' %}">Click through to ChipIn Functions</a>
 {% endblock %}

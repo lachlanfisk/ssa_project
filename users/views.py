@@ -63,10 +63,10 @@ def logout_view(request):
 @login_required
 def accept_invite(request, group_id):
     group = get_object_or_404(Group, id=group_id)
-    encoded_email = request.GET.get('email')
-    if encoded_email:
-        invited_email = urllib.parse.unquote(encoded_email)
-        invited_user = get_object_or_404(User, email=invited_email)
+    encoded_username = request.GET.get('username')
+    if encoded_username:
+        invited_username = urllib.parse.unquote(encoded_username)
+        invited_username = get_object_or_404(User, username=invited_username)
         if invited_user in group.members.all():
             messages.info(request, f'{invited_user.username} is already a member of the group "{group.name}".')
         else:
