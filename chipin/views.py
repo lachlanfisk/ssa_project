@@ -33,12 +33,12 @@ def create_group(request):
     if request.method == 'POST':
         form = GroupCreationForm(request.POST, user=request.user)
         if form.is_valid():
-            group_name = form.cleaned.data['name']
+            group_name = form.cleaned_data['name']
             if Group.objects.filter(name=group_name).exists():
                 messages.error(request, f'A group with the name "{group_name}" already exists.')
             else:
                 group = form.save()
-                messages.success(request, f'Group "{group.name}" created successfully!')
+                messages.success(request, f'Group "{group_name}" created successfully!')
                 return redirect('chipin:group_detail', group_id=group.id)
     else:
         form = GroupCreationForm(user=request.user)
