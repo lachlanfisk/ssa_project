@@ -59,19 +59,3 @@ def logout_view(request):
     logout(request)
     messages.success(request, "Successfully logged out.")
     return redirect('users:login')
-
-@login_required
-def accept_invite(request, group_id):
-    group = get_object_or_404(Group, id=group_id)
-    encoded_username = request.GET.get('username')
-    if encoded_username:
-        invited_username = urllib.parse.unquote(encoded_username)
-        invited_username = get_object_or_404(User, username=invited_username)
-        if invited_user in group.members.all():
-            messages.info(request, f'{invited_user.username} is already a member of the group "{group.name}".')
-        else:
-            group.members.add(invited_user)
-            messages.success(request, f'{invited_user.username} has successfully joined the group "{group.name}".')
-    else:
-        messages.error(request, "Invalid invitation link.")
-    return redirect('chipin:group_detail', group_id=group.id)
