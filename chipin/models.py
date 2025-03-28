@@ -16,6 +16,10 @@ class GroupJoinRequest(models.Model):
     is_approved = models.BooleanField(default=False)
     votes = models.ManyToManyField(User, related_name='votes', blank=True)  # Tracks users who voted
     created_at = models.DateTimeField(auto_now_add=True)
+<<<<<<< HEAD
+=======
+    waitlist = models.ManyToManyField(User, related_name='waitlist', blank=True)
+>>>>>>> d1899b9 (initial commit)
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # User who posted the comment
@@ -39,6 +43,12 @@ class Event(models.Model):
         members_count = self.group.members.count()
         if members_count == 0:
             return 0
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+        return round(self.total_spend / members_count, 2)
+=======
+>>>>>>> d1899b9 (initial commit)
         return self.total_spend / members_count
 
     def check_status(self):
@@ -50,6 +60,10 @@ class Event(models.Model):
                 return False
         self.status = 'Active'
         return True
+<<<<<<< HEAD
+=======
+>>>>>>> 7faa12264b3d22f5d5da482278a01edd8a6e2c1f
+>>>>>>> d1899b9 (initial commit)
 
 
 

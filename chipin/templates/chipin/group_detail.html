@@ -1,5 +1,9 @@
 {% extends 'chipin/base.html' %}
+<<<<<<< HEAD
 {% block title %}{{ group.name }}{% endblock %}
+=======
+{% block title %}ChipIn - {{ group.name }} - Details {% endblock %}
+>>>>>>> d1899b9 (initial commit)
 {% block content %}
     <h1>{{ group.name }}</h1>
     <p>Administrator: {{ group.admin.profile.nickname }}</p>
@@ -62,6 +66,13 @@
         </div>
         <button type="submit">{% if comment_to_edit %}Save Comment{% else %}Post Comment{% endif %}</button>
     </form>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7faa12264b3d22f5d5da482278a01edd8a6e2c1f
+>>>>>>> d1899b9 (initial commit)
     <h2>Group Events</h2>
     <!-- Only display "Create New Event" link to the group administrator -->
     {% if request.user == group.admin %}
@@ -79,6 +90,13 @@
                     <span class="joined">You have already joined this event.</span>
                     <a href="{% url 'chipin:leave_event' group.id event.id %}" class="btn btn-warning" onclick="return confirm('Are you sure you want to leave this event?');">Leave Event</a>
                 {% else %}
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+                    <span class="eligible">You are eligible to join this event.</span>
+                    <a href="{% url 'chipin:join_event' group.id event.id %}" class="btn btn-success">Join Event</a>
+=======
+>>>>>>> d1899b9 (initial commit)
                     <!-- If the user is eligible, show the "Join Event" link -->
                     {% if info.eligible %}
                         <span class="eligible">You are eligible to join this event.</span>
@@ -86,6 +104,10 @@
                     {% else %}
                         <span class="waiting-room">You are in the waiting room for this event. Increase your balance or wait for more members to join.</span>
                     {% endif %}
+<<<<<<< HEAD
+=======
+>>>>>>> 7faa12264b3d22f5d5da482278a01edd8a6e2c1f
+>>>>>>> d1899b9 (initial commit)
                 {% endif %}
                 <!-- Only display the "Delete Event" link if the user is the group admin -->
                 {% if request.user == group.admin %}

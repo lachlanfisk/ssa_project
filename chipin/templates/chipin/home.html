@@ -1,6 +1,10 @@
 {% extends 'chipin/base.html' %}
 {% load static %}
+<<<<<<< HEAD
 {% block title %}ChipIn{% endblock %}
+=======
+{% block title %}ChipIn - Home{% endblock %}
+>>>>>>> d1899b9 (initial commit)
 {% block content %}
     <h1>ChipIn</h1>
     <h2>Group Invitations</h2>
@@ -54,7 +58,11 @@
     <ul>
         {% for group in available_groups %}
         <li>
+<<<<<<< HEAD
             <a href="{% url 'chipin:group_detail' group.id %}">{{ group.name }}</a>
+=======
+            <a href="{% url 'chipin:request_to_join_group' group.id %}">{{ group.name }}</a>
+>>>>>>> d1899b9 (initial commit)
             <span>- Admin: {{ group.admin.profile.nickname }}</span>
         </li>
         {% empty %}
