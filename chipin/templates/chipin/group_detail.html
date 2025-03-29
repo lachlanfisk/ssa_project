@@ -63,6 +63,7 @@
             {{ form.content }}
         </div>
         <button type="submit">{% if comment_to_edit %}Save Comment{% else %}Post Comment{% endif %}</button>
+    </form>
     <h2>Group Events</h2>
     <!-- Only display "Create New Event" link to the group administrator -->
     {% if request.user == group.admin %}
