@@ -17,9 +17,6 @@ class UserRegistrationForm(UserCreationForm):
             profile = user.profile
             profile.nickname = self.cleaned_data['nickname']
             profile.save()
-<<<<<<< HEAD
-        return user
-=======
         return user
 
 class TopUpForm(forms.Form):
@@ -33,4 +30,3 @@ class TopUpForm(forms.Form):
             'invalid': "Enter a valid amount in dollars and cents.",
         }
     )
->>>>>>> d1899b9 (initial commit)

@@ -12,11 +12,7 @@
         </div>
         <div class="user-info">
             {% if request.user.is_authenticated %}
-<<<<<<< HEAD
-            <a href="{% url 'chipin:home' %}">Home</a> <span>{{ request.user.profile.nickname }}</span>
-=======
             <a href="{% url 'users:user' %}">Users</a> <a href="{% url 'chipin:home' %}">ChipIn</a> <span>{{ request.user.profile.nickname }}</span>
->>>>>>> d1899b9 (initial commit)
                 <form action="{% url 'users:logout' %}" method="post">
                     {% csrf_token %}
                     <button type="submit">Logout</button>
@@ -39,11 +35,7 @@
         {% endblock %}
     </main>
     <footer>
-<<<<<<< HEAD
-        <p>&copy; 2024 ChipIn</p>
-=======
         <p>&copy; 2025 ChipIn</p>
->>>>>>> d1899b9 (initial commit)
     </footer>
 </body>
 </html>

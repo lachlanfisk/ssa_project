@@ -13,16 +13,9 @@ from .models import GroupJoinRequest
 from .models import Group, Comment
 from .forms import CommentForm
 from .models import Event
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-
 
 # if request.user not in group.members.all():
 # put this everywhere
-=======
->>>>>>> 7faa12264b3d22f5d5da482278a01edd8a6e2c1f
->>>>>>> d1899b9 (initial commit)
 
 @login_required
 def home(request):
@@ -89,13 +82,6 @@ def accept_invite(request, group_id):
     user_id = request.GET.get('user_id')
     if user_id:
         invited_user = get_object_or_404(User, id=user_id)
-<<<<<<< HEAD
-        if invited_user in group.members.all():
-            messages.info(request, f'{invited_user.profile.nickname} is already a member of the group "{group.name}".')
-        elif invited_user in group.invited_users.all():
-            group.members.add(invited_user)
-            group.invited_users.remove(invited_user)  # Remove from invited list
-=======
         # Check if the user is already a member of the group
         if invited_user in group.members.all():
             messages.info(request, f'{invited_user.profile.nickname} is already a member of the group "{group.name}".')
@@ -105,17 +91,12 @@ def accept_invite(request, group_id):
             group.members.add(invited_user)
             # Remove the user from the invited list
             group.invited_users.remove(invited_user)
->>>>>>> d1899b9 (initial commit)
             messages.success(request, f'{invited_user.profile.nickname} has successfully joined the group "{group.name}".')
         else:
             messages.error(request, "You are not invited to join this group.")
     else:
         messages.error(request, "Invalid invitation link.")  
-<<<<<<< HEAD
-=======
-    
     # Redirect to the group detail page, but ensure that the pending invitations are updated
->>>>>>> d1899b9 (initial commit)
     return redirect('chipin:group_detail', group_id=group.id)
 
 @login_required
@@ -165,15 +146,8 @@ def vote_on_join_request(request, group_id, request_id, vote):
     if request.user in join_request.votes.all():
         messages.info(request, "You have already voted.")
         return redirect('chipin:group_detail', group_id=group.id)
-<<<<<<< HEAD
-        
     # Register the user's vote
     join_request.votes.add(request.user)
-    
-=======
-    # Register the user's vote
-    join_request.votes.add(request.user)
->>>>>>> d1899b9 (initial commit)
     # Calculate if more than 60% of members have approved
     total_members = group.members.count()
     total_votes = join_request.votes.count() 
@@ -208,13 +182,8 @@ def delete_comment(request, comment_id):
 
 
 @login_required
-<<<<<<< HEAD
-def group_detail(request, group_id, edit_comment_id=None):
-    group = get_object_or_404(Group, id=group_id)
-=======
 def group_detail(request, group_id, edit_comment_id=None,):
     group = get_object_or_404(Group, id=group_id)
-<<<<<<< HEAD
     if request.user in group.members.all():
         comments = group.comments.all().order_by('-created_at')  # Fetch all comments for the group
         events = group.events.all()  # Fetch all events associated with the group
@@ -261,21 +230,6 @@ def group_detail(request, group_id, edit_comment_id=None,):
             'events': events,
             'event_share_info': event_share_info,
         })
-=======
->>>>>>> d1899b9 (initial commit)
-    comments = group.comments.all().order_by('-created_at')  # Fetch all comments for the group
-    events = group.events.all()  # Fetch all events associated with the group
-    # Add a new comment or edit an existing comment
-    if edit_comment_id: # Fetch the comment to edit, if edit_comment_id is provided
-        comment_to_edit = get_object_or_404(Comment, id=edit_comment_id)
-        if comment_to_edit.user != request.user:
-            return redirect('chipin:group_detail', group_id=group.id)
-<<<<<<< HEAD
-    else:
-        comment_to_edit = None
-    if request.method == 'POST':
-=======
->>>>>>> 7faa12264b3d22f5d5da482278a01edd8a6e2c1f
     else:
         join_request = get_object_or_404(GroupJoinRequest) 
         if request.user in join_request.waitlist.all():
@@ -290,54 +244,6 @@ def create_event(request, group_id):
         messages.error(request, "Only the group administrator can create events.")
         return redirect('chipin:group_detail', group_id=group.id)
     if request.method == 'POST':
-<<<<<<< HEAD
-=======
->>>>>>> d1899b9 (initial commit)
-        if comment_to_edit: # Editing an existing comment
-            form = CommentForm(request.POST, instance=comment_to_edit)
-        else: # Adding a new comment
-            form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.user = request.user
-            comment.group = group
-            comment.save()
-            return redirect('chipin:group_detail', group_id=group.id)
-    else:
-        form = CommentForm(instance=comment_to_edit) if comment_to_edit else CommentForm()
-    # Calculate event share for each event and check user eligibility
-    event_share_info = {}
-    for event in events:
-        event_share = event.calculate_share()
-        user_eligible = request.user.profile.max_spend >= event_share
-        user_has_joined = request.user in event.members.all()  # Check if the user has already joined the event
-        event_share_info[event] = {
-            'share': event_share,
-            'eligible': user_eligible,
-            'status': event.status,
-            'joined': user_has_joined
-        }
-    # Return data to the template
-    return render(request, 'chipin/group_detail.html', {
-        'group': group,
-        'comments': comments,
-        'form': form,
-        'comment_to_edit': comment_to_edit,
-        'events': events,
-        'event_share_info': event_share_info,
-    })
-
-@login_required
-def create_event(request, group_id):
-    group = get_object_or_404(Group, id=group_id)
-    if request.user != group.admin:
-        messages.error(request, "Only the group administrator can create events.")
-        return redirect('chipin:group_detail', group_id=group.id)
-    if request.method == 'POST':
-<<<<<<< HEAD
-=======
->>>>>>> 7faa12264b3d22f5d5da482278a01edd8a6e2c1f
->>>>>>> d1899b9 (initial commit)
         event_name = request.POST.get('name')
         event_date = request.POST.get('date')
         total_spend = request.POST.get('total_spend')
@@ -356,19 +262,10 @@ def join_event(request, group_id, event_id):
     group = get_object_or_404(Group, id=group_id)
     event = get_object_or_404(Event, id=event_id, group=group)
     event_share = event.calculate_share()  
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> d1899b9 (initial commit)
     # Check if the user is eligible to join based on their max spend
     if request.user.profile.max_spend < event_share:
         messages.error(request, f"Your max spend of ${request.user.profile.max_spend} is too low to join this event.")
         return redirect('chipin:group_detail', group_id=group.id)
-<<<<<<< HEAD
-=======
->>>>>>> 7faa12264b3d22f5d5da482278a01edd8a6e2c1f
->>>>>>> d1899b9 (initial commit)
     # Check if the user has already joined the event
     if request.user in event.members.all():
         messages.info(request, "You have already joined this event.")
@@ -377,14 +274,8 @@ def join_event(request, group_id, event_id):
     event.members.add(request.user)   
     messages.success(request, f"You have successfully joined the event '{event.name}'.")  
     # Optionally, update the event status if needed
-<<<<<<< HEAD
     event.check_status()
-=======
-<<<<<<< HEAD
-=======
     event.check_status()
->>>>>>> 7faa12264b3d22f5d5da482278a01edd8a6e2c1f
->>>>>>> d1899b9 (initial commit)
     event.save()
     return redirect('chipin:group_detail', group_id=group.id)
 
@@ -401,14 +292,9 @@ def update_event_status(request, group_id, event_id):
     event_share = event.calculate_share()
     # Check if all members can afford the event share
     sufficient_funds = True
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
     # Update the event status based on the members' ability to cover the share
     event.status = "Active"
     messages.success(request, f"The event '{event.name}' is now Active.")
-=======
->>>>>>> d1899b9 (initial commit)
     for member in group.members.all():
         if member.profile.max_spend < event_share:
             sufficient_funds = False
@@ -420,10 +306,6 @@ def update_event_status(request, group_id, event_id):
     else:
         event.status = "Pending"
         messages.warning(request, f"The event '{event.name}' remains Pending. Some members cannot cover the cost.")
-<<<<<<< HEAD
-=======
->>>>>>> 7faa12264b3d22f5d5da482278a01edd8a6e2c1f
->>>>>>> d1899b9 (initial commit)
     # Save the updated event status
     event.save()
     return redirect('chipin:group_detail', group_id=group.id)

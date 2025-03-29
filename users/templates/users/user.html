@@ -1,22 +1,15 @@
 {% extends 'chipin/base.html' %}
 {% load static %}
-<<<<<<< HEAD
-{% block title %}User Management{% endblock %}
-=======
 {% block title %}ChipIn - User Management{% endblock %}
->>>>>>> d1899b9 (initial commit)
 
 {% block content %} 
     <h2>Welcome {{ request.profile.nickname }}</h2>
     <p>This page is for user management functions.</p>
-<<<<<<< HEAD
-    <a href="{% url 'chipin:home' %}">Click through to ChipIn Functions</a>
-=======
     <p>Your current balance is ${{ balance }}</p>
     <a href="{% url 'chipin:home' %}">Click through to ChipIn Functions</a>
     <p></p>
     <a href="{% url 'users:top_up' %}">Top Up Balance</a>
     <p></p>
     <a href="{% url 'users:delete_account' %}" class="btn btn-danger">Delete Account</a>
->>>>>>> d1899b9 (initial commit)
+
 {% endblock %}

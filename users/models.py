@@ -26,13 +26,7 @@ def validate_unique_nickname(nickname, instance=None):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nickname = models.CharField(max_length=30, unique=True, null=False, blank=False)
-<<<<<<< HEAD
-=======
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)  # User's current balance
->>>>>>> d1899b9 (initial commit)
-    max_spend = models.DecimalField(max_digits=10, decimal_places=2, default=100.00)  # Max spend for each event
-    balance = models.DecimalField(max_digits=10, decimal_places=2, default=100.00)  # User's current balance
-
 
     def clean(self):
         validate_unique_nickname(self.nickname, instance=self)
@@ -42,8 +36,6 @@ class Profile(models.Model):
         super().save(*args, **kwargs)    
 
     def __str__(self):
-<<<<<<< HEAD
-=======
         return self.user.username
     
 
@@ -53,5 +45,4 @@ class Transaction(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
->>>>>>> d1899b9 (initial commit)
         return self.user.username
